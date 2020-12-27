@@ -11,10 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CIRCLECI_PROJECT_SLUG: "gh/${{ github.repository }}"
-      CHECKRUN_EXTERNAL_ID: "${{ github.event.check_run.external_id }}"
-      EVENT: ${{ toJson(github.event) }}
+      CIRCLECI_WORKFLOW: "${{ github.event.check_run.external_id }}"
+      CIRCLECI_TOKEN: "${{ secrets.CIRCLECI_TOKEN }}"
+      EVENT: ${{ toJson(github.event) }} # TODO: remove
+
     steps:
-    - name: Perform actions 
+    - name: Install gotestsum
       run: |
-        echo ok
+        go mod init gotools
+        go get gotest.tools/gotestsum@48af2b256e52f4ecee4015972221abd6b801e52f
+    - name: Perform actions
+      run: gotestsum tool ci-action
 
