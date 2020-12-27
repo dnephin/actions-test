@@ -1,23 +1,20 @@
-name: "Test when events fire"
+name: "gotestsum CI reactions"
 
 on:
-  status:
-  check_suite:
+  check_run:
     types: [completed]
 
 jobs:
-  print:
-    name: Print event context
+  ci-react:
+    if: github.event.check_run.app.slug == 'circleci-checks'
+    name: Perform actions based on CI artifacts
     runs-on: ubuntu-latest
     env:
+      CIRCLECI_PROJECT_SLUG: "gh/${{ github.repository }}"
+      CHECKRUN_EXTERNAL_ID: "${{ .check_run.external_id }}"
       EVENT: ${{ toJson(github.event) }}
-      URL: ${{ github.event.check_suite.check_runs_url }}
     steps:
-    - name: debug
-      run: echo $EVENT
-    - name: find artifacts
+    - name: Perform actions 
       run: |
-        workflow_url=$(curl -sSL "$URL" | jq -r '.check_runs[].details_url')
-        echo "$workflow_url"
-        curl -sSL "$workflow_url"
+        echo ok
 
