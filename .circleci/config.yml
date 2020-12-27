@@ -27,4 +27,7 @@ jobs:
     - run:
         name: Test 
         command: echo "test it"
+    - run: echo asdfasdfasdfadf > /tmp/rerun-fails-report
+    - store_artifacts:
+        path: /tmp/rerun-fails-report
 
