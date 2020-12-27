@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CIRCLECI_PROJECT_SLUG: "gh/${{ github.repository }}"
-      CHECKRUN_EXTERNAL_ID: "${{ .check_run.external_id }}"
+      CHECKRUN_EXTERNAL_ID: "${{ github.event.check_run.external_id }}"
       EVENT: ${{ toJson(github.event) }}
     steps:
     - name: Perform actions 
