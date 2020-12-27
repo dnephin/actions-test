@@ -21,5 +21,10 @@ jobs:
         go mod init gotools
         go get gotest.tools/gotestsum@48af2b256e52f4ecee4015972221abd6b801e52f
     - name: Perform actions
-      run: gotestsum tool ci-action
+      run: |
+        echo $GOROOT $GOBIN
+        ls /go/bin || true
+        ls ~/go/bin || true
+        export PATH=$PATH:/go/bin:~/go/bin
+        gotestsum tool ci-action
 
