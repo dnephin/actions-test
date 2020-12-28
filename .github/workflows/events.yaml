@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      CIRCLECI_PROJECT_SLUG: "gh/${{ github.repository }}"
+      GITHUB_PROJECT: "${{ github.repository }}"
+      GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      GITHUB_PR: "${{ github.event.check_run.pull_requests[0].number }}"
       CIRCLECI_WORKFLOW: "${{ github.event.check_run.external_id }}"
       CIRCLECI_TOKEN: "${{ secrets.CIRCLECI_TOKEN }}"
 
@@ -19,7 +21,7 @@ jobs:
     - name: Install gotestsum
       run: |
         go mod init gotools
-        go get gotest.tools/gotestsum@48af2b256e52f4ecee4015972221abd6b801e52f
+        go get gotest.tools/gotestsum@910cc105eb7f321a490a0d5b054cc1c7f8471642
     - name: Perform actions
       run: |
         export PATH=$PATH:~/go/bin
