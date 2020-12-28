@@ -21,7 +21,7 @@ jobs:
     - name: Install gotestsum
       run: |
         go mod init gotools
-        go get gotest.tools/gotestsum@910cc105eb7f321a490a0d5b054cc1c7f8471642
+        go get gotest.tools/gotestsum@1e1b8b10aad80e877740b71b700ef73d8b42133d
     - name: Perform actions
       run: |
         export PATH=$PATH:~/go/bin
