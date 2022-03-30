@@ -3,7 +3,13 @@ name: "Manage github labels"
 on:
   push:
     branches: [main]
-  pull_request: {}
+    paths:
+      - ".github/workflows/manage-labels.yaml"
+      - ".github/labels.yaml"
+  pull_request:
+    paths:
+      - ".github/workflows/manage-labels.yaml"
+      - ".github/labels.yaml"
 
 jobs:
   labeler:
